@@ -2,6 +2,7 @@
 
 import turtle
 import winsound
+import time
 
 wn = turtle.Screen()
 wn.title("Pong by Philip")
@@ -71,6 +72,15 @@ def paddle_b_down():
     y -= 20
     paddle_b.sety(y)
 
+#Define game over
+def game_over():
+    ball.hideturtle()
+    pen.goto(0,0)
+    pen.write("{} Wins!".format(winner), align="center", font=("Courier", 20, "normal"))
+    wn.update()
+    time.sleep(3)
+    wn.bye()
+
 #Keyboard binding
 wn.listen()
 wn.onkeypress(paddle_a_up, "w")
@@ -101,6 +111,12 @@ while True:
         score_a += 1
         pen.clear()
         pen.write("Player A:{}       Player B:{}".format(score_a, score_b), align="center", font=("Courier", 20, "normal"))
+        if score_a == 5:
+            winner = "Player A"
+            game_over()
+        elif score_b == 5:
+            winner = "Player B"
+            game_over()
 
     if ball.xcor() < -390:
         ball.goto(0,0)
@@ -108,6 +124,12 @@ while True:
         score_b += 1
         pen.clear()
         pen.write("Player A:{}       Player B:{}".format(score_a, score_b), align="center", font=("Courier", 20, "normal"))
+        if score_a == 5:
+            winner = "Player A"
+            game_over()
+        elif score_b == 5:
+            winner = "Player B"
+            game_over()
 
     #Paddle and ball collisions
     
